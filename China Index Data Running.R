@@ -258,6 +258,7 @@ final_score <- write.xlsx(x = score_by_province_and_domain,file = "D:/celios/inf
 #https://stackoverflow.com/questions/68287677/merging-multiple-dataframes-in-r
 #https://stackoverflow.com/questions/46305724/merging-of-multiple-excel-files-in-r
 #https://stackoverflow.com/questions/12945687/read-all-worksheets-in-an-excel-workbook-into-an-r-list-with-data-frames
+#https://stackoverflow.com/questions/75637837/merge-and-join-multiple-excel-files-in-r
 #Jonathan Ng. (2018). Combine Multiple Excel Sheets into a Single Table using R Tidyverse. Accessed from https://www.youtube.com/watch?v=3TUyp4ZMu88.
 #OpenAI. (2023). ChatGPT (Sep 25 version) [Large language model]. https://chat.openai.com/chat.
                      
