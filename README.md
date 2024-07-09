@@ -3,7 +3,7 @@ Based on my personal experience, while extremely useful, Excel often has limited
 Feel free to use the codes in this repository for personal or office purposes.
 
 IMPORTANT NOTE: 
-- Not all code lines are my original work. I refer to many sources before customizing them.
+- Not all of the code lines are my original work. I refer to many sources before customizing them according to my needs.
 - Each user will have a unique case.
 - R also gets updated regularly, and codes that work today may not work tomorrow due to changes in syntax, function names, etc.
 
