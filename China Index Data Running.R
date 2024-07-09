@@ -1,6 +1,6 @@
 ###########################################################
 #CHINA INDEX DATA AGGREGATION AND CALCULATION
-#PREPARED FOR CELIOS CHINA-INDONESIA RELATIONS TEAM
+#PREPARED FOR ONE OF CELIOS' RESEARCH PROJECTS
 #COMBINED, MODIFIED, AND CUSTOMIZED FROM VARIOUS SOURCES
 #SPECIAL CREDITS FOR STACK OVERFLOW COMMUNITY AND JONATHAN NG
 #REFERENCES ARE PLACED TO THE BOTTOM OF THIS CODE
@@ -9,6 +9,8 @@
 #3 JULY 2024
 ###########################################################
 
+#Case: This code was written to combine multiple files from multiple sheets and perform calculations
+#The files are transformed into data frames before being processed for calculation
 
 # Setting up libraries
 library(purrr)
@@ -84,43 +86,9 @@ merge_datasets <- function(datasets) {
 }
 
 # Generate list of data sets to which the function will be applied to
-datasets <- list("D:/celios/chinaindex/Bali 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Bangka Belitung 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Banten 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Bengkulu 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Daerah Istimewa Yogyakarta 2_7 done.xlsx",
-                 "D:/celios/chinaindex/DKI Jakarta 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Gorontalo 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Jambi 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Jawa Barat 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Jawa Tengah 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Jawa Timur 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Kalimantan Barat.xlsx",
-                 "D:/celios/chinaindex/Kalimantan Selatan 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Kalimantan Tengah 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Kalimantan Timur.xlsx",
-                 "D:/celios/chinaindex/Kalimantan Utara 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Kepulauan Riau.xlsx",
-                 "D:/celios/chinaindex/Lampung.xlsx",
-                 "D:/celios/chinaindex/Maluku 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Maluku Utara 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Nanggroe Aceh Darussalam.xlsx",
-                 "D:/celios/chinaindex/Nusa Tenggara Barat.xlsx",
-                 "D:/celios/chinaindex/Nusa Tenggara Timur.xlsx",
-                 "D:/celios/chinaindex/Papua 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Papua Barat Daya 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Papua Pegunungan 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Papua Selatan 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Papua Tengah 2_7 done.xlsx",
-                 "D:/celios/chinaindex/Riau.xlsx",
-                 "D:/celios/chinaindex/Sulawesi Barat.xlsx",
-                 "D:/celios/chinaindex/Sulawesi Selatan.xlsx",
-                 "D:/celios/chinaindex/Sulawesi Tengah.xlsx",
-                 "D:/celios/chinaindex/Sulawesi Tenggara.xlsx",
-                 "D:/celios/chinaindex/Sulawesi Utara.xlsx",
-                 "D:/celios/chinaindex/Sumatera Barat.xlsx",
-                 "D:/celios/chinaindex/Sumatera Selatan .xlsx",
-                 "D:/celios/chinaindex/Sumatera Utara 3_7 done.xlsx")
+datasets <- list(".../data/Bali 2_7 done.xlsx", #insert path and file name
+                 ".../" #insert other used paths here
+                 ".../data/Sumatera Utara 3_7 done.xlsx")
                  
 #Apply function to merge the data sets to the worksheets
 map_df(datasets,merge_datasets)
