@@ -1,16 +1,14 @@
-###########################################################
+###################################################################################################
 #CHINA INDEX DATA AGGREGATION AND CALCULATION
-#PREPARED FOR ONE OF CELIOS' RESEARCH PROJECTS
+#PREPARED FOR CELIOS CHINA-INDONESIA RELATIONS TEAM
 #COMBINED, MODIFIED, AND CUSTOMIZED FROM VARIOUS SOURCES
 #SPECIAL CREDITS FOR STACK OVERFLOW COMMUNITY AND JONATHAN NG
 #REFERENCES ARE PLACED TO THE BOTTOM OF THIS CODE
-###########################################################
+###################################################################################################
 #LAY MONICA RATNA DEWI
 #3 JULY 2024
-###########################################################
+###################################################################################################
 
-#Case: This code was written to combine multiple files from multiple sheets and perform calculations
-#The files are transformed into data frames before being processed for calculation
 
 # Setting up libraries
 library(purrr)
@@ -22,11 +20,11 @@ library(rio)
 library(readr)
 
 # Setting up directory
-setwd("D:/celios/chinaindex")
-datasets <- list.files("D:/celios/chinaindex",pattern = "*.xlsx",full.names = TRUE)
+setwd("~/Documents/chinaindex/raw data")
+datasets <- list.files("~/Documents/chinaindex2025/raw data",pattern = "*.xlsx",full.names = TRUE)
 
 
-####################PREPARING DATAFRAME####################
+####################PREPARING DATAFRAME############################################################
 # Review sheet name
 excel_sheets(datasets[1])
 
@@ -37,7 +35,7 @@ clean_sheet <- function(datasets){
   wb <- loadWorkbook(datasets) 
   
   #Create list of unused sheets
-  sheet_remove <- c("Intro","Selection Options")
+  sheet_remove <- c("Intro","Selection Options","Export Summary")
   
   #Remove unused sheets
   for (sheet_name in sheet_remove) {
@@ -57,7 +55,7 @@ lapply(datasets, clean_sheet)
 
 
 
-####################MERGE SHEETS############################
+####################MERGE SHEETS###################################################################
 #Automate the below commands
 #df_1 <- excel_sheets(datasets[1]) %>% map_df(~read.xlsx(datasets[1],.))
 #df_2 <- excel_sheets(datasets[1]) %>% map_df(~read.xlsx(datasets[2],.))
@@ -75,7 +73,8 @@ merge_datasets <- function(datasets) {
     
     # Read all sheets for the current datasets and bind them row-wise
     df <- sheets %>% 
-      map_df(~read.xlsx(datasets[[i]], sheet = .x)) %>% mutate_all(as.character)
+      map_df(~read.xlsx(datasets[[i]], sheet = .x) %>% 
+      mutate(across(everything(), as.character)))
     
     # The result must be stored
     dataframes[[i]] <- df
@@ -86,9 +85,45 @@ merge_datasets <- function(datasets) {
 }
 
 # Generate list of data sets to which the function will be applied to
-datasets <- list(".../data/Bali 2_7 done.xlsx", #insert path and file name
-                 ".../" #insert other used paths here
-                 ".../data/Sumatera Utara 3_7 done.xlsx")
+datasets <- list(    '~/Documents/chinaindex2025/raw data/Aceh 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Bali 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Bangka Belitung 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Banten 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Bengkulu 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Gorontalo 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Jakarta 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Jambi 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Jawa Barat 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Jawa Tengah 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Jawa Timur 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Kalimantan Barat 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Kalimantan Selatan 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Kalimantan Tengah 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Kalimantan Timur 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Kalimantan Utara 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Kepulauan Riau 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Lampung 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Maluku Utara 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Maluku 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Nusa Tenggara Barat 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Nusa Tenggara Timur 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Papua Barat Daya 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Papua Barat 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Papua Pegunungan 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Papua Selatan 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Papua Tengah 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Papua 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Riau 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Sulawesi Barat 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Sulawesi Selatan 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Sulawesi Tengah 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Sulawesi Tenggara 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Sulawesi Utara 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Sumatera Barat 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Sumatera Selatan 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Sumatera Utara 2025.xlsx',
+                     '~/Documents/chinaindex2025/raw data/Yogyakarta 2025.xlsx')
+
                  
 #Apply function to merge the data sets to the worksheets
 map_df(datasets,merge_datasets)
@@ -101,18 +136,18 @@ new_df <- lapply(processed_data,as.data.frame)
 
 
 
-####################ASSIGNING NAME OF PROVINCES TO EACH DATA FRAME####################
+####################ASSIGNING NAME OF PROVINCES TO EACH DATA FRAME####################################
 #Create a function to assign province label to each data frame
 labelling <- function(labelling_province){
 
 #Generate list of provinces to label data frames  
-province_list <- c('Bali',
+province_list <- c('Aceh',
+                   'Bali',
                    'Bangka Belitung',
                    'Banten',
                    'Bengkulu',
-                   'Daerah Istimewa Yogyakarta',
-                   'DKI Jakarta',
                    'Gorontalo',
+                   'Jakarta',
                    'Jambi',
                    'Jawa Barat',
                    'Jawa Tengah',
@@ -124,16 +159,16 @@ province_list <- c('Bali',
                    'Kalimantan Utara',
                    'Kepulauan Riau',
                    'Lampung',
-                   'Maluku',
                    'Maluku Utara',
-                   'Nanggroe Aceh Darussalam',
+                   'Maluku',
                    'Nusa Tenggara Barat',
                    'Nusa Tenggara Timur',
-                   'Papua',
                    'Papua Barat Daya',
+                   'Papua Barat',
                    'Papua Pegunungan',
                    'Papua Selatan',
                    'Papua Tengah',
+                   'Papua',
                    'Riau',
                    'Sulawesi Barat',
                    'Sulawesi Selatan',
@@ -142,7 +177,8 @@ province_list <- c('Bali',
                    'Sulawesi Utara',
                    'Sumatera Barat',
                    'Sumatera Selatan',
-                   'Sumatera Utara')
+                   'Sumatera Utara',
+                   'Yogyakarta')
 
 #Automate the following code
 #province_1 <- paste(province_list[1])
@@ -217,13 +253,15 @@ View(score_by_province_and_domain)
 score_by_province <- (xtabs(Score ~ province_label, data = final_df)) %>% as.data.frame()
 View(score_by_province)
 
+View(score_by_province %>% filter (is.na(Freq)))
+
 score_by_domain <- (xtabs(Score ~ Category, data = final_df)) %>% as.data.frame()
 View(score_by_domain)
 
 #Store to Excel workbook as backups
-score_1 <- write.xlsx(x = score_by_province_and_domain,file = "D:/celios/rawinfluencescore1.xlsx", asTable = TRUE)
-score_2 <- write.xlsx(x = score_by_province,file = "D:/celios/rawinfluencescore2.xlsx", asTable = TRUE)
-score_3 <- write.xlsx(x = score_by_domain,file = "D:/celios/rawinfluencescore3.xlsx", asTable = TRUE)
+score_1 <- write.xlsx(x = score_by_province_and_domain,file = "~/Documents/chinaindex2025/rawinfluencescore1.xlsx", asTable = TRUE)
+score_2 <- write.xlsx(x = score_by_province,file = "~/Documents/chinaindex2025/rawinfluencescore2.xlsx", asTable = TRUE)
+score_3 <- write.xlsx(x = score_by_domain,file = "~/Documents/chinaindex2025/rawinfluencescore3.xlsx", asTable = TRUE)
 
 #Calculate influence score based on the predetermined mechanism
 #Assign score to each response based on the predetermined criteria
@@ -238,10 +276,10 @@ score_by_province_and_domain <- score_by_province_and_domain %>%
     Category == "Society" ~ 4*9,
     Category == "Technology" ~ 4*7,
     TRUE ~ NA_real_
-  )) %>% mutate(influence_score_percent = Freq/max_score*100)
+  )) %>% mutate(influence_score_percent = round(Freq/max_score*100,2))
 View(score_by_province_and_domain)
 
-final_score <- write.xlsx(x = score_by_province_and_domain,file = "D:/celios/influencescore_all_provinces.xlsx", asTable = TRUE)
+final_score <- write.xlsx(x = score_by_province_and_domain,file = "~/Documents/chinaindex2025/influencescore_all_provinces.xlsx", asTable = TRUE)
 
 #REFERENCES
 #https://stackoverflow.com/questions/73901996/how-to-combine-multiple-excel-files-into-one-using-r
@@ -258,7 +296,6 @@ final_score <- write.xlsx(x = score_by_province_and_domain,file = "D:/celios/inf
 #https://stackoverflow.com/questions/68287677/merging-multiple-dataframes-in-r
 #https://stackoverflow.com/questions/46305724/merging-of-multiple-excel-files-in-r
 #https://stackoverflow.com/questions/12945687/read-all-worksheets-in-an-excel-workbook-into-an-r-list-with-data-frames
-#https://stackoverflow.com/questions/75637837/merge-and-join-multiple-excel-files-in-r
 #Jonathan Ng. (2018). Combine Multiple Excel Sheets into a Single Table using R Tidyverse. Accessed from https://www.youtube.com/watch?v=3TUyp4ZMu88.
 #OpenAI. (2023). ChatGPT (Sep 25 version) [Large language model]. https://chat.openai.com/chat.
                      
